@@ -10,12 +10,12 @@ app.get('/', (req, res) => {
         method: 'GET',
         header:req.headers
     };
-    (async ()=>{
-        const buffer = request.get(options);
+
+        let buffer = request(options);
         buffer.on('data',chunked=>{
            res.send(chunked.toString())
         })
-    })();
+
 
 })
 app.listen(process.env.PORT || 3000)
