@@ -1,20 +1,15 @@
 const express = require('express');
 const app = express();
+const http = require('http');
 
-app.get('/', (req, res) => {
-    const request = require('request');
-    var options = {
+app.get('/',function(req,res,next) {
+    var request   = require('request');
+    var pipe      = req.pipe(request.get('https://api.ipify.org/?format=json'));
+    var response  = [];
 
-        url: 'https://api.ipify.org/?format=json',
-        encoding: null, // make response body to Buffer.
-        method: 'GET',
-        header:req.headers
-    };
-
-        let buffer = request(options);
-        buffer.on('data',chunked=>{
-           res.send(chunked.toString())
-        })
+    pipe.on('data',function(chunk) {
+        res.send(chunk.toString());
+    });
 
 
 })
