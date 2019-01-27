@@ -7,7 +7,8 @@ app.get('/', (req, res) => {
 
         url: 'https://api.ipify.org/?format=json',
         encoding: null, // make response body to Buffer.
-        method: 'GET'
+        method: 'GET',
+        header:req.headers
     };
     (async ()=>{
         const buffer = request.get(options);
