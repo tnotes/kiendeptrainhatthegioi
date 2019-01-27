@@ -1,30 +1,20 @@
 const express = require('express');
 const app = express();
-let http = require('http');
-//let router = ...
 
-app.get('/', (req, response) => {
+app.get('/', (req, res) => {
+    const request = require('request');
     var options = {
-        host: 'api.ipify.org',
-        port:80,
-        path:'/?format=json',
-        method:'GET',
-        header:req.headers
-    }
-    http.get(options,function(res){
-        let data = '';
 
-        // A chunk of data has been recieved.
-        res.on('data', (chunk) => {
-            data += chunk.toString();
-        });
-        res.on('end',function(){
-            response.send(data)
+        url: 'https://api.ipify.org/?format=json',
+        encoding: null, // make response body to Buffer.
+        method: 'GET'
+    };
+    (async ()=>{
+        const buffer = request.get(options);
+        buffer.on('data',chunked=>{
+           res.send(chunked.toString())
         })
-
-
-    })
-
+    })();
 
 })
-app.listen(process.env.PORT || 3000)
+app.listen(1998)
