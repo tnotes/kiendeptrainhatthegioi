@@ -1,26 +1,20 @@
 const express = require('express');
 const app = express();
 const request = require('request');
-
 app.get('/',(req,res)=>{
+    res.sendFile(__dirname+'/index.html');
+})
+app.post('/post',async (req,res)=>{
+
 
     let option = {
         method: 'GET',
-        url: 'https://www.sendo.vn/m/wap_v2/search/product?p=1&q=microlab%2Bm108&s=60&search_algo=algo1&sortType=rank',
-        header:req.headers
+        url: 'https://api.ipify.org/?format=json',
+        header: req.headers
     };
-    let pipe = req.pipe(request(option));
-    let result = '';
-    pipe.on('data',chunked=>{
-        result += chunked.toString();
-    })
-    pipe.on('end',function(){
-        res.send(result)
-    })
+    req.pipe(request(option)).pipe(res)
 });
-app.get('/test',(req,res)=>{
-    req.pipe(request('https://api.ipify.org/?format=json')).pipe(res)
-})
+
 
 
 app.listen(process.env.PORT || 3000)
