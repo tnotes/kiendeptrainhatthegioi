@@ -4,13 +4,14 @@ const request = require('request');
 app.get('/',(req,res)=>{
     res.sendFile(__dirname+'/index.html');
 })
-app.post('/post',async (req,res)=>{
+app.all('/post',async (req,res)=>{
 
 
     let option = {
         method: 'GET',
         url: 'https://www.sendo.vn/m/wap_v2/search/product?p=1&q=microlab&s=100&search_algo=algo3&sortType=rank',
-        header: req.headers
+        header: req.headers,
+        json:true
     };
     req.pipe(request(option)).pipe(res)
 });

@@ -6,18 +6,42 @@
 </head>
 <body>
 <div id="app">
-    {{message}}
+    <ul>
+        <li v-for="data in list.result.data">{{data.name}}</li>
+    </ul>
 </div>
 </body>
 <script>
     var app = new Vue({
         el: '#app',
         data: {
-            message: 'Hello Vue!'
+            message: 'Hello Vue!',
+            list:[]
         },
         created:async function(){
-            let result = await axios.post('/post');
-            this.message = JSON.parse(result.data)
+            let _ = this;
+            fetch('/post').then(function(response) {
+
+
+                let reader = response.body.getReader();
+
+                function go() {
+                    reader.read().then(function (result) {
+                        if (!result.done) {
+                            let num = new TextDecoder("utf-8").decode(result.value);
+
+                            _.list.push(num)
+                            go();
+                        }else{
+
+                            _.list = JSON.parse(_.list)
+                        }
+                    })
+                }
+
+                go();
+            })
+
         }
     })
 </script>
