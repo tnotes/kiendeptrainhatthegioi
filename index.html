@@ -17,7 +17,7 @@
         },
         created:async function(){
             let result = await axios.post('/post');
-            this.message = result.data
+            this.message = JSON.parse(result.data)
         }
     })
 </script>
