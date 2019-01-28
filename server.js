@@ -9,7 +9,7 @@ app.post('/post',async (req,res)=>{
 
     let option = {
         method: 'GET',
-        url: 'https://api.ipify.org/?format=json',
+        url: 'https://www.sendo.vn/m/wap_v2/search/product?p=1&q=microlab&s=100&search_algo=algo3&sortType=rank',
         header: req.headers
     };
     req.pipe(request(option)).pipe(res)
