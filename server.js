@@ -19,7 +19,7 @@ app.get('/',(req,res)=>{
     })
 });
 app.get('/test',(req,res)=>{
-    req.pipe(request('https://www.sendo.vn/m/wap_v2/search/product?p=1&q=microlab%2Bm108&s=60&search_algo=algo1&sortType=rank')).pipe(res)
+    req.pipe(request('https://api.ipify.org/?format=json')).pipe(res)
 })
 
 
