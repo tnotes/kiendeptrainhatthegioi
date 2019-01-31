@@ -1,15 +1,11 @@
 const express = require('express');
 const app = express();
+let got = require('got');
 
 app.get('/',async (req,res)=>{
 
-    const got = require('got');
-    let result = '';
-    let response = req.pipe(got.stream('https://whatismyipaddress.com/'));
-    response.on('data',chunked=>result+=chunked.toString('binary'));
-    response.on('end',function(){
-        res.send(result);
-    })
+    let response = req.pipe(got.stream('https://whatismyipaddress.com/')).pipe(res)
+
 });
 
 app.listen(process.env.PORT || 3000)
