@@ -42,7 +42,8 @@ let lazadaMIN = async (keyword,req) => {
 
     let option = {
         method: 'GET',
-        url: 'https://cmyip.com/',
+        url: 'https://www.lazada.vn/catalog/?ajax=true&from=input&q=' + encodeURIComponent(keyword),
+
     };
     let body = await req.pipe(request(option));
     return body
@@ -152,15 +153,8 @@ let lotteMIN = async (keyword,req) => {
 
 
 module.exports = async (keyword,req) => {
-    let list = [
-        lazadaMIN(keyword,req),
-      //  shopeeMIN(keyword,req),
-     //   sendoMIN(keyword,req),
-     //   tikiMIN(keyword,req),
-    //    adayroiMIN(keyword,req),
-    //    lotteMIN(keyword,req),
-    ];
-    let result = await Promise.all(list);
+
+    let result = await lazadaMIN(keyword,req);
     return result
 };
 
