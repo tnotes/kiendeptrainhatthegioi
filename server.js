@@ -1,18 +1,14 @@
-const https = require("https");
+var request = require("request"), iconv  = require('iconv-lite');
 const app = require('express')();
-app.get('/',async function(req,res) {
-    req.pipe(https.get("https://api.ipify.org/?format=json", response => {
-        let responseBody = "";
-
-        response.on("data", dataChunk => {
-            responseBody += dataChunk;
-
-        });
-
-        response.on("end", end => {
-            res.send(responseBody);
-        });
-
-    }));
+app.get('/',async function(req,res){
+    let requestOptions  = { encoding: null, method: "GET", uri: req.query.url};
+    let response = req.pipe(request(requestOptions));
+    let result = '';
+    response.on('data',chunked=>{
+        result += iconv.decode(new Buffer(chunked), "UTF-8");
+    });
+    response.on('end',function(){
+        res.send(result);
+    })
 });
-app.listen(process.env.PORT || 80);
+app.listen(process.env.PORT || 3000);
