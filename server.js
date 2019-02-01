@@ -1,4 +1,4 @@
-const request = require("request");
+const request = require("request-promise");
 const app = require('express')();
 app.get('/',async function(req,res){
     req.headers['accept-encoding'] = '';
@@ -8,17 +8,8 @@ app.get('/',async function(req,res){
         method: "GET",
         uri: "https://www.whatismyip.com/",
     };
-    let response = req.pipe(request(requestOptions));
-    let result = '';
-    response.on('data',chunked=>{
-        result += chunked.toString();
-    });
-    response.on('end',function(){
-        res.send(result);
-    })
-    response.on("error", error => {
-        console.error(error.message);
-    });
+    let response = await req.pipe(request(requestOptions));
+    res.send(response)
 });
 
 app.listen(process.env.PORT || 80);
