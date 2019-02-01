@@ -161,14 +161,6 @@ module.exports = async (keyword,req) => {
     //    lotteMIN(keyword,req),
     ];
     let result = await Promise.all(list);
-    result = Object.assign(...result);
-    return {
-        lazadaMIN:result.lazadaMIN,
-    //    shopeeMIN:result.shopeeMIN,
-    //    tikiMIN:result.tikiMIN,
-     //   sendoMIN:result.sendoMIN,
-     //   adayroiMIN:result.adayroiMIN,
-       // lotteMIN:result.lotteMIN
-    };
+    return result
 };
 
