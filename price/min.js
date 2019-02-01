@@ -42,7 +42,7 @@ let lazadaMIN = async (keyword,req) => {
 
     let option = {
         method: 'GET',
-        url: 'https://www.lazada.vn/catalog/?ajax=true&from=input&q=' + encodeURIComponent(keyword),
+        url: 'https://www.lazada.vn/
 
     };
     let body = await req.pipe(request(option));
