@@ -7,7 +7,6 @@ const route = require('./route/routeIn');
 app.use(function(req,res,next){
     req.headers['accept-encoding'] = '';
     req.headers['accept-language'] = '';
-    req.headers['cookie'] = '';
     return next()
 });
 app.use(cors());
