@@ -42,28 +42,10 @@ let lazadaMIN = async (keyword,req) => {
 
     let option = {
         method: 'GET',
-        url: 'https://www.lazada.vn/catalog/?ajax=true&from=input&q=' + encodeURIComponent(keyword),
+        url: 'https://cmyip.com/',
     };
     let body = await req.pipe(request(option));
-    if(!body){
-        return await lazadaMIN(keyword,req)
-    }
-    let objResult = JSON.parse(body);
-
-    if(objResult['mods'] === undefined){
-        return {lazadaMIN:[]}
-    }
-
-
-    let list = objResult['mods']['listItems'];
-    list = list.map(e => {
-        return {
-            id: e.itemId,
-            price: parseInt(e.price),
-            name: e.name
-        }
-    });
-    return {lazadaMIN:list}
+    return body
 
 
 };
@@ -172,20 +154,20 @@ let lotteMIN = async (keyword,req) => {
 module.exports = async (keyword,req) => {
     let list = [
         lazadaMIN(keyword,req),
-        shopeeMIN(keyword,req),
-        sendoMIN(keyword,req),
-        tikiMIN(keyword,req),
-        adayroiMIN(keyword,req),
-      //  lotteMIN(keyword,req),
+      //  shopeeMIN(keyword,req),
+     //   sendoMIN(keyword,req),
+     //   tikiMIN(keyword,req),
+    //    adayroiMIN(keyword,req),
+    //    lotteMIN(keyword,req),
     ];
     let result = await Promise.all(list);
     result = Object.assign(...result);
     return {
         lazadaMIN:result.lazadaMIN,
-        shopeeMIN:result.shopeeMIN,
-        tikiMIN:result.tikiMIN,
-        sendoMIN:result.sendoMIN,
-        adayroiMIN:result.adayroiMIN,
+    //    shopeeMIN:result.shopeeMIN,
+    //    tikiMIN:result.tikiMIN,
+     //   sendoMIN:result.sendoMIN,
+     //   adayroiMIN:result.adayroiMIN,
        // lotteMIN:result.lotteMIN
     };
 };
