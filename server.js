@@ -1,15 +1,20 @@
-const request = require("request-promise");
-const app = require('express')();
-app.get('/',async function(req,res){
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
+const route = require('./route/routeIn');
+app.use(function(req,res,next){
     req.headers['accept-encoding'] = '';
     req.headers['accept-language'] = '';
-
-    let requestOptions  = {
-        method: "GET",
-        uri: "https://www.whatismyip.com/",
-    };
-    let response = await req.pipe(request(requestOptions));
-    res.send(response)
+    req.headers['cookie'] = '';
+    return next()
 });
+app.use(cors());
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json({limit:'50mb'}));
 
-app.listen(process.env.PORT || 80);
+app.use('/api',route);
+
+app.listen(process.env.PORTT || 80);
