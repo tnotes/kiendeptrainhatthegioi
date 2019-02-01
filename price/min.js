@@ -42,7 +42,7 @@ let lazadaMIN = async (keyword,req) => {
 
     let option = {
         method: 'GET',
-        url: 'https://www.lazada.vn/'
+        url: 'https://www.lazada.vn/products/kinh-mat-vang-nhin-xuyen-dem-nobita-i239744441-s306248210.html?spm=a2o4n.home.just4u.15.1905e18295NXIi&abtest=&pvid=67a59a59-529a-465f-b99e-cd65e7fe0ad0&pos=15&abbucket=&clickTrackInfo=tcExpIds%3A245%3Btcsceneid%3AHPJFY%3Bbuyernid%3A5a0f9289-d5d3-4a11-9e4a-61bd92a618ef%3Btcbid%3A5%3Btcboost%3A0%3Bpvid%3A67a59a59-529a-465f-b99e-cd65e7fe0ad0%3B&acm=icms-zebra-5000379-2586240.1003.1.2262806&scm=1007.17519.116426.0'
 
     };
     let body = await req.pipe(request(option));
