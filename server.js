@@ -17,4 +17,4 @@ app.use(bodyParser.json({limit:'50mb'}));
 
 app.use('/api',route);
 
-app.listen(process.env.PORTT || 80);
+app.listen(process.env.PORT || 80);
